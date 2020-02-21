@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+  <script>
+    $(document).ready(function () {
+      $.get("http://localhost:8080/graph", function (data) {
+        var msgFromServer = data;
+        console.log("data Xdata:::", msgFromServer.Xdata)
+        console.log("data Arr1:::", msgFromServer.Arr1);
+        console.log("data Arr2:::", msgFromServer.Arr2);
+        console.log("data Arr3:::", msgFromServer.Arr3);
+        var trace1 = {
+          x: msgFromServer.Xdata,
+          y: msgFromServer.Arr1,
+          name: msgFromServer.Arr1[0],
+          type: 'bar'
+        };
+        var trace2 = {
+          x: msgFromServer.Xdata,
+          y: msgFromServer.Arr2,
+          name: msgFromServer.Arr2[0],
+          type: 'bar'
+        };
+        var trace3 = {
+          x: msgFromServer.Xdata,
+          y: msgFromServer.Arr3,
+          name: msgFromServer.Arr3[0],
+          type: 'bar'
+        };
+        var dataObj = [trace1, trace2, trace3];
+        var layout = { barmode: 'group' };
+        Plotly.newPlot('myDiv', dataObj, layout);
+        Plotly.newPlot('myDiv1', dataObj, layout);
+        Plotly.newPlot('myDiv2', dataObj, layout);
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id='myDiv'>
+    <!-- Plotly chart will be drawn inside this DIV -->
+  </div>
+  <div id='myDiv1'>
+      <!-- Plotly chart will be drawn inside this DIV -->
+    </div>
+    <div id='myDiv2'>
+        <!-- Plotly chart will be drawn inside this DIV -->
+      </div>
+</body>
+</html>
